@@ -8,6 +8,7 @@ import WhyChooseUs from "./components/home/WhyChooseUs";
 import Testimonials from "./components/home/Testimonials";
 import Gallery from "./components/home/Gallery";
 import Newsletter from "./components/home/Newsletter";
+import Footer from "./components/layout/Footer";
 function App() {
   return (
     <div className="min-h-screen bg-white">
@@ -21,9 +22,11 @@ function App() {
         <SpecialOffer />
         <WhyChooseUs />
         <Testimonials />
-        <Gallery/>
-        <Newsletter/>
+        <Gallery />
+        <Newsletter />
       </main>
+
+      <Footer />
     </div>
   );
 }
