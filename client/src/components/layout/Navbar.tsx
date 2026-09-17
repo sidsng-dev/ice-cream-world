@@ -6,28 +6,24 @@ import {
   User,
   ShoppingCart,
 } from "lucide-react";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "Menu", href: "#menu" },
-    { label: "Flavours", href: "#flavours" },
-    { label: "Offers", href: "#offers" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
-  ];
-
+ const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Menu", href: "/menu" },
+  { label: "Flavours", href: "/menu" },
+  { label: "Offers", href: "/#offers" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/#contact" },
+];
   return (
     <header className="sticky top-0 z-50 border-b border-pink-100 bg-white/95 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
 
         {/* Logo */}
-        <a
-          href="#home"
-          className="flex items-center gap-2"
-        >
+        <Link to="/" className="flex items-center gap-2">
           <span className="text-3xl">🍦</span>
 
           <div>
@@ -39,19 +35,20 @@ const Navbar = () => {
             <p className="hidden text-[9px] font-medium uppercase tracking-[0.2em] text-gray-400 sm:block">
               Happiness in every scoop
             </p>
+          
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="relative text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-pink-600"
-            >
-              {link.label}
-            </a>
+           <Link
+            key={link.label}
+            to={link.href}
+            className="relative text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-pink-600"
+          >
+            {link.label}
+          </Link>
           ))}
         </div>
 
@@ -65,29 +62,33 @@ const Navbar = () => {
             <Search size={20} />
           </button>
 
-          <button
-            aria-label="Account"
-            className="rounded-full p-2 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
-          >
-            <User size={20} />
-          </button>
+          <Link
+          to="/login"
+          aria-label="Account"
+          className="rounded-full p-2 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
+        >
+          <User size={20} />
+        </Link>
 
           {/* Cart */}
-          <button
-            aria-label="Shopping cart"
-            className="relative rounded-full p-2 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
-          >
-            <ShoppingCart size={20} />
+          <Link
+              to="/cart"
+              aria-label="Shopping cart"
+              className="relative rounded-full p-2 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
+            >
+              <ShoppingCart size={20} />
 
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-600 text-[10px] font-bold text-white">
-              2
-            </span>
-          </button>
-
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-600 text-[10px] font-bold text-white">
+                2
+              </span>
+              </Link>
           {/* CTA */}
-          <button className="ml-2 rounded-full bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-pink-700 hover:shadow-md">
+          <Link
+            to="/menu"
+            className="ml-2 rounded-full bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-pink-700 hover:shadow-md"
+          >
             Order Now
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -106,21 +107,24 @@ const Navbar = () => {
 
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
-              >
-                {link.label}
-              </a>
+                          <Link
+              key={link.label}
+              to={link.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
+            >
+              {link.label}
+            </Link>
             ))}
           </div>
 
-          <button className="mt-4 w-full rounded-full bg-pink-600 py-3 font-semibold text-white transition hover:bg-pink-700">
+          <Link
+            to="/menu"
+            onClick={() => setIsMenuOpen(false)}
+            className="mt-4 block w-full rounded-full bg-pink-600 py-3 text-center font-semibold text-white transition hover:bg-pink-700"
+          >
             Order Now 🍦
-          </button>
-
+          </Link>
         </div>
       )}
     </header>
