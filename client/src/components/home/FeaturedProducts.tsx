@@ -1,51 +1,11 @@
-import ProductCard, { type Product } from "./ProductCard";
+import { Link } from "react-router-dom";
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Belgian Chocolate",
-    category: "Chocolate",
-    description:
-      "Rich, creamy chocolate ice cream made for serious chocolate lovers.",
-    price: 120,
-    rating: 4.9,
-    emoji: "🍫",
-    isPopular: true,
-  },
-  {
-    id: 2,
-    name: "Strawberry Bliss",
-    category: "Fruit",
-    description:
-      "Sweet strawberry ice cream with real strawberry goodness in every scoop.",
-    price: 110,
-    rating: 4.8,
-    emoji: "🍓",
-    isPopular: true,
-  },
-  {
-    id: 3,
-    name: "Mango Delight",
-    category: "Fruit",
-    description:
-      "A tropical mango treat packed with refreshing fruity flavour.",
-    price: 115,
-    rating: 4.7,
-    emoji: "🥭",
-  },
-  {
-    id: 4,
-    name: "Cookies & Cream",
-    category: "Classic",
-    description:
-      "Smooth vanilla ice cream loaded with crunchy chocolate cookie pieces.",
-    price: 125,
-    rating: 4.9,
-    emoji: "🍪",
-  },
-];
+import { products } from "../../data/products";
+import ProductCard from "./ProductCard";
 
 const FeaturedProducts = () => {
+  const featuredProducts = products.slice(0, 4);
+
   return (
     <section
       id="menu"
@@ -71,15 +31,19 @@ const FeaturedProducts = () => {
             </p>
           </div>
 
-          <button className="w-fit rounded-full border-2 border-pink-200 bg-white px-5 py-2.5 text-sm font-bold text-pink-600 transition hover:bg-pink-600 hover:text-white">
+          {/* View All */}
+          <Link
+            to="/menu"
+            className="w-fit rounded-full border-2 border-pink-200 bg-white px-5 py-2.5 text-sm font-bold text-pink-600 transition hover:bg-pink-600 hover:text-white"
+          >
             View All Flavours →
-          </button>
+          </Link>
 
         </div>
 
         {/* Products */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
+          {featuredProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

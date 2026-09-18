@@ -1,7 +1,3 @@
-import AnnouncementBar from "../components/layout/AnnouncementBar";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
-
 import Hero from "../components/home/Hero";
 import Categories from "../components/home/Categories";
 import FeaturedProducts from "../components/home/FeaturedProducts";
@@ -13,23 +9,23 @@ import Newsletter from "../components/home/Newsletter";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <AnnouncementBar />
-      <Navbar />
+    <>
+      <Hero />
 
-      <main>
-        <Hero />
-        <Categories />
-        <FeaturedProducts />
-        <SpecialOffer />
-        <WhyChooseUs />
-        <Testimonials />
-        <Gallery />
-        <Newsletter />
-      </main>
+      <Categories />
 
-      <Footer />
-    </div>
+      <FeaturedProducts />
+
+      <SpecialOffer />
+
+      <WhyChooseUs />
+
+      <Testimonials />
+
+      <Gallery />
+
+      <Newsletter />
+    </>
   );
 };
 
