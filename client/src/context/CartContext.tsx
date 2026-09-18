@@ -14,9 +14,15 @@ interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (
+    product: Product,
+    quantity?: number
+  ) => void;
   removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  updateQuantity: (
+    productId: number,
+    quantity: number
+  ) => void;
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
@@ -35,7 +41,10 @@ export const CartProvider = ({
 }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (
+    product: Product,
+    quantity: number = 1
+  ) => {
     setCartItems((currentItems) => {
       const existingItem = currentItems.find(
         (item) => item.product.id === product.id
@@ -46,7 +55,7 @@ export const CartProvider = ({
           item.product.id === product.id
             ? {
                 ...item,
-                quantity: item.quantity + 1,
+                quantity: item.quantity + quantity,
               }
             : item
         );
@@ -56,7 +65,7 @@ export const CartProvider = ({
         ...currentItems,
         {
           product,
-          quantity: 1,
+          quantity,
         },
       ];
     });

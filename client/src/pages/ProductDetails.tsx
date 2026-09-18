@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -9,9 +9,12 @@ import {
   Star,
 } from "lucide-react";
 
+import { useCart } from "../context/CartContext";
 import { products } from "../data/products";
+import Toast from "../components/common/Toast";
 
 const ProductDetails = () => {
+  const { addToCart } = useCart();
   const { id } = useParams();
 
   const product = products.find(
@@ -19,6 +22,20 @@ const ProductDetails = () => {
   );
 
   const [quantity, setQuantity] = useState(1);
+  const [showToast, setShowToast] = useState(false);
+
+  // Automatically hide toast after 2.5 seconds
+  useEffect(() => {
+    if (!showToast) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowToast(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [showToast]);
 
   // Product doesn't exist
   if (!product) {
@@ -49,6 +66,15 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-pink-50 px-5 py-10 sm:px-8 lg:py-14">
+
+      {/* Toast */}
+      {showToast && (
+        <Toast
+          message={`${product.name} added to cart!`}
+          onClose={() => setShowToast(false)}
+        />
+      )}
+
       <div className="mx-auto max-w-6xl">
 
         {/* Back to Menu */}
@@ -75,6 +101,7 @@ const ProductDetails = () => {
             <div className="text-[10rem] transition-transform duration-500 hover:scale-110">
               {product.emoji}
             </div>
+
           </div>
 
           {/* Product Information */}
@@ -127,6 +154,7 @@ const ProductDetails = () => {
 
             {/* Quantity */}
             <div className="mt-7">
+
               <p className="mb-3 text-sm font-bold text-gray-900">
                 Quantity
               </p>
@@ -135,6 +163,7 @@ const ProductDetails = () => {
 
                 {/* Decrease */}
                 <button
+                  type="button"
                   onClick={() =>
                     setQuantity((current) =>
                       Math.max(1, current - 1)
@@ -153,6 +182,7 @@ const ProductDetails = () => {
 
                 {/* Increase */}
                 <button
+                  type="button"
                   onClick={() =>
                     setQuantity((current) => current + 1)
                   }
@@ -169,13 +199,21 @@ const ProductDetails = () => {
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
 
               {/* Add to Cart */}
-              <button className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-600 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-pink-700">
+              <button
+                type="button"
+                onClick={() => {
+                  addToCart(product, quantity);
+                  setShowToast(true);
+                }}
+                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-pink-600 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-pink-700"
+              >
                 <ShoppingCart size={18} />
                 Add to Cart
               </button>
 
               {/* Wishlist */}
               <button
+                type="button"
                 aria-label="Add to wishlist"
                 className="flex items-center justify-center rounded-full border border-pink-200 px-5 py-3.5 text-pink-600 transition hover:bg-pink-50"
               >
@@ -183,6 +221,7 @@ const ProductDetails = () => {
               </button>
 
             </div>
+
           </div>
         </div>
       </div>
