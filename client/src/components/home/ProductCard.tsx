@@ -1,15 +1,5 @@
 import { Heart, ShoppingCart, Star } from "lucide-react";
-
-export interface Product {
-  id: number;
-  name: string;
-  category: string;
-  description: string;
-  price: number;
-  rating: number;
-  emoji: string;
-  isPopular?: boolean;
-}
+import type { Product } from "../../types/product";
 
 interface ProductCardProps {
   product: Product;
